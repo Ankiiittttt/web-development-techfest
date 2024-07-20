@@ -1,0 +1,43 @@
+Code Flow for app.py
+Import Required Libraries:
+
+Flask, request, render_template, send_file, flash, redirect, url_for from the Flask library to handle web requests and responses.
+pandas as pd for handling CSV file operations.
+BytesIO from io to create an in-memory stream for the CSV file.
+Initialize Flask Application:
+
+app = Flask(__name__) initializes the Flask application.
+app.secret_key = 'supersecretkey' sets a secret key required for flashing messages.
+Global Variable for DataFrame:
+
+allocation_df_global = None is a global variable to store the allocation DataFrame.
+Define Route for Index Page:
+
+The index() function handles the GET and POST requests for the / route.
+If a POST request is received, it processes the uploaded CSV files.
+Checks if the files are present.
+Reads the CSV files into DataFrames.
+Allocates rooms using the allocate_rooms() function.
+Stores the allocation DataFrame globally and renders the results.
+If a GET request is received, it renders the index.html template.
+Room Allocation Function:
+
+allocate_rooms(group_df, hostel_df):
+Initializes an empty DataFrame for allocations.
+Iterates over each group in group_df.
+Calls find_suitable_hostel_room() to find suitable rooms for the group.
+Updates the allocation DataFrame and adjusts the remaining members to be allocated.
+Returns the allocation DataFrame.
+Find Suitable Hostel Room:
+
+find_suitable_hostel_room(group, hostel_df):
+Filters the hostel_df for rooms matching the group's gender and having sufficient capacity.
+If no exact match is found, it considers rooms with smaller capacities.
+Returns the most suitable room.
+Download Allocation Route:
+
+download_allocation() handles the GET request for the /download_allocation route.
+Converts the global allocation DataFrame to a CSV and sends it as a downloadable file.
+Run the Flask Application:
+
+if __name__ == '__main__': app.run(debug=True) runs the Flask application in debug mode.
